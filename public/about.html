@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About · Net Worth Tracker Indonesia</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0f14;--surface:#141720;--surface2:#1c2030;--border:#ffffff1e;
+  --accent:#4ade80;--accent2:#22d3ee;--accent3:#f59e0b;
+  --text:#f0f2f8;--muted:#9ca3af;--danger:#f87171;
+  --font:'Sora',sans-serif;--mono:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:14px;min-height:100vh;padding-bottom:80px}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+
+.wrap{max-width:760px;margin:0 auto;padding:40px 24px}
+
+/* Nav */
+.nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;padding-bottom:16px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:12px}
+.nav-brand{font-size:15px;font-weight:700;color:var(--text)}
+.nav-brand span{color:var(--accent)}
+.nav-links{display:flex;gap:8px;flex-wrap:wrap}
+.nav-link{font-size:12px;font-family:var(--mono);color:var(--muted);padding:6px 14px;border:1px solid var(--border);border-radius:8px;transition:all .2s;text-decoration:none}
+.nav-link:hover{color:var(--text);border-color:#ffffff30;text-decoration:none}
+.nav-link.accent{color:var(--accent2);border-color:#22d3ee28}
+.nav-link.accent:hover{border-color:#22d3ee60}
+
+/* Hero */
+.hero{margin-bottom:48px}
+.hero h1{font-size:32px;font-weight:700;letter-spacing:-0.5px;margin-bottom:8px}
+.hero h1 span{color:var(--accent)}
+.hero .sub{font-size:14px;color:var(--muted);font-family:var(--mono)}
+.accent-bar{width:48px;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;margin:14px 0 0}
+
+/* Section */
+.section{margin-bottom:48px}
+.section-label{font-size:10px;font-family:var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* Donate */
+.donate-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.donate-icon{font-size:36px;flex-shrink:0}
+.donate-text h3{font-size:16px;font-weight:600;margin-bottom:6px}
+.donate-text p{font-size:13px;color:var(--muted);line-height:1.7;max-width:420px}
+.donate-btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#ff6b35,#ff4757);color:#fff;font-family:var(--font);font-weight:600;font-size:13px;padding:10px 22px;border-radius:10px;margin-top:14px;transition:all .2s;text-decoration:none}
+.donate-btn:hover{transform:translateY(-2px);opacity:.9;text-decoration:none}
+.donate-btn svg{width:16px;height:16px;fill:white}
+
+/* About */
+.about-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px}
+.about-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#0d0f14;margin-bottom:18px}
+.about-card h3{font-size:18px;font-weight:700;margin-bottom:4px}
+.about-card .handle{font-size:12px;font-family:var(--mono);color:var(--muted);margin-bottom:16px}
+.about-card p{font-size:13px;color:#c0c8d8;line-height:1.85;margin-bottom:12px}
+.about-card p:last-of-type{margin-bottom:0}
+
+/* Contact */
+.contact-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;padding-top:20px;border-top:1px solid var(--border)}
+.contact-chip{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-family:var(--mono);padding:8px 16px;border-radius:8px;border:1px solid var(--border);color:var(--muted);transition:all .2s;text-decoration:none}
+.contact-chip:hover{color:var(--text);border-color:#ffffff30;text-decoration:none}
+.contact-chip.email:hover{color:var(--accent);border-color:#4ade8040}
+.contact-chip.github:hover{color:var(--accent2);border-color:#22d3ee40}
+.contact-chip.trakteer:hover{color:#ff6b35;border-color:#ff6b3540}
+
+/* Footer */
+.footer{margin-top:56px;padding-top:24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-text{font-size:11px;font-family:var(--mono);color:#4b5563}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-brand">Net Worth <span>Tracker</span></div>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">← Tracker</a>
+      <a href="changelog.html" class="nav-link">Changelog</a>
+      <a href="global.html" class="nav-link accent">🌍 Global Stats</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>About <span>Me</span></h1>
+    <div class="sub">Cerita di balik tools ini — dan kenapa gue bikinnya.</div>
+    <div class="accent-bar"></div>
+  </div>
+
+  <!-- About -->
+  <div class="section">
+    <div class="section-label">Tentang Pembuat</div>
+    <div class="about-card">
+      <div class="about-avatar">N</div>
+      <h3>Newlegendanaga</h3>
+      <div class="handle">@newlegendanaga123</div>
+
+      <p>
+        Halo! Gw orang Indo biasa yg suatu hari pas lagi ngopi malah kepikiran — "anjir, net worth gw sebenernya brp sih?" Aset nyebar ke mana-mana: saham IDX, US stocks, crypto, emas, properti, tabungan beda mata uang. Cari tools yg bisa track semuanya sekaligus dan masih relevan buat orang Indo? Susah banget ternyata.
+      </p>
+      <p>
+        Akhirnya gw bikin sendiri. Pelan-pelan sambil belajar. Awalnya pure buat kebutuhan pribadi doang, tapi lama-lama berkembang jadi sesuatu yg lebih dari sekadar spreadsheet.
+      </p>
+      <p>
+        Dan jujur aja, kalo tools ini bisa bikin even 1 orang jadi lebih aware sama kondisi finansialnya sendiri, itu aja udah cukup banget buat gw.
+      </p>
+      <p>
+        Kita tumbuh di era inflasi naik, cicilan di mana-mana, dan pressure sosial buat keliatan "sukses". Padahal <strong>financial awareness bukan soal keliatan kaya — tapi soal ngerti uang kita lari ke mana</strong>, dan punya gambaran jelas buat ambil keputusan yg lebih baik ke depannya.
+      </p>
+      <p>
+        Semoga tools ini bisa jadi langkah kecil ke arah sana. 🌱
+      </p>
+      <p style="color:var(--muted);font-size:12px;font-style:italic;margin-top:4px">
+        <strong><em>"It's not about how much you earn — it's about how intentional you are with what you have."</em></strong>
+      </p>
+
+      <!-- Contact -->
+      <div class="contact-row">
+        <a href="mailto:newlegendanaga123@gmail.com" class="contact-chip email">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg>
+          newlegendanaga123@gmail.com
+        </a>
+        <a href="https://github.com/newlegendanaga123/networth-tracker/issues" target="_blank" rel="noopener" class="contact-chip github">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          Bug report / saran fitur
+        </a>
+        <a href="https://teer.id/newlegendanaga123" target="_blank" rel="noopener" class="contact-chip trakteer">
+          ☕ Trakteer
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Donate -->
+  <div class="section">
+    <div class="section-label">Dukung Project Ini</div>
+    <div class="donate-card">
+      <div class="donate-icon">☕</div>
+      <div class="donate-text">
+        <h3>Trakteer kalau tools ini bermanfaat buat kamu 🙏</h3>
+        <p>Tools ini gratis dan open source, selamanya. Tapi kalau kamu merasa terbantu dan ingin support supaya pengembangan bisa terus jalan — secangkir kopi sudah lebih dari cukup. Tidak ada nominal minimum, apapun berarti banyak.</p>
+        <a href="https://teer.id/newlegendanaga123" target="_blank" rel="noopener" class="donate-btn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 3H2v10a4 4 0 004 4h8a4 4 0 004-4v-2h1a3 3 0 000-6h-1V3zm-2 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2V5h12zm3 2a1 1 0 010 2h-1V7h1z"/></svg>
+          Trakteer Sekarang
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-text">© 2026 Newlegendanaga · Net Worth Tracker · Open Source</div>
+    <div style="display:flex;gap:8px">
+      <a href="changelog.html" style="font-size:11px;font-family:var(--mono);color:var(--muted);text-decoration:none">Changelog →</a>
+      <a href="global.html" style="font-size:11px;font-family:var(--mono);color:var(--accent2);text-decoration:none">🌍 Global Stats →</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Changelog · Net Worth Tracker Indonesia</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0f14;--surface:#141720;--surface2:#1c2030;--border:#ffffff1e;
+  --accent:#4ade80;--accent2:#22d3ee;--accent3:#f59e0b;
+  --text:#f0f2f8;--muted:#9ca3af;--danger:#f87171;
+  --font:'Sora',sans-serif;--mono:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:14px;min-height:100vh;padding-bottom:80px}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+
+.wrap{max-width:760px;margin:0 auto;padding:40px 24px}
+
+/* Nav */
+.nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.nav-brand{font-size:15px;font-weight:700;color:var(--text)}
+.nav-brand span{color:var(--accent)}
+.nav-link{font-size:12px;font-family:var(--mono);color:var(--muted);padding:6px 14px;border:1px solid var(--border);border-radius:8px;transition:all .2s}
+.nav-link:hover{color:var(--text);border-color:#ffffff30;text-decoration:none}
+
+/* Hero */
+.hero{margin-bottom:56px}
+.hero h1{font-size:32px;font-weight:700;letter-spacing:-0.5px;margin-bottom:8px}
+.hero h1 span{color:var(--accent)}
+.hero .sub{font-size:14px;color:var(--muted);font-family:var(--mono)}
+.accent-bar{width:48px;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;margin:14px 0 0}
+
+/* Section */
+.section{margin-bottom:56px}
+.section-label{font-size:10px;font-family:var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* Changelog */
+.version-block{margin-bottom:32px}
+.version-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.version-num{font-size:18px;font-weight:700;font-family:var(--mono);color:var(--text)}
+.version-badge{font-size:10px;font-family:var(--mono);padding:3px 10px;border-radius:20px;font-weight:500}
+.badge-mid{background:#4ade8015;color:var(--accent);border:1px solid #4ade8028}
+.badge-big{background:#22d3ee15;color:var(--accent2);border:1px solid #22d3ee28}
+.badge-small{background:#6b728015;color:var(--muted);border:1px solid #6b728028}
+.version-date{font-size:11px;font-family:var(--mono);color:#6b7280}
+.patch-list{list-style:none;padding-left:0}
+.patch-list li{font-size:13px;color:#c0c8d8;padding:6px 0 6px 20px;border-bottom:1px solid #ffffff05;position:relative;line-height:1.6}
+.patch-list li::before{content:'';position:absolute;left:0;top:13px;width:6px;height:6px;border-radius:50%;background:var(--accent);opacity:.5}
+.patch-list li:last-child{border-bottom:none}
+.patch-tag{font-size:10px;font-family:var(--mono);padding:1px 7px;border-radius:10px;margin-right:6px;font-weight:500;vertical-align:middle}
+.tag-mid{background:#4ade8018;color:var(--accent)}
+.tag-small{background:#6b728018;color:var(--muted)}
+.tag-big{background:#22d3ee18;color:var(--accent2)}
+.snapshot-chip{font-size:10px;font-family:var(--mono);color:var(--accent3);background:#f59e0b15;border:1px solid #f59e0b28;padding:2px 8px;border-radius:4px;margin-left:8px}
+
+/* Donate */
+.donate-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px 28px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.donate-icon{font-size:36px;flex-shrink:0}
+.donate-text h3{font-size:16px;font-weight:600;margin-bottom:6px}
+.donate-text p{font-size:13px;color:var(--muted);line-height:1.7;max-width:420px}
+.donate-btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#ff6b35,#ff4757);color:#fff;font-family:var(--font);font-weight:600;font-size:13px;padding:10px 22px;border-radius:10px;margin-top:14px;transition:all .2s;text-decoration:none}
+.donate-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px #ff4757-30;text-decoration:none;opacity:.9}
+.donate-btn svg{width:16px;height:16px;fill:white}
+
+/* About */
+.about-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px}
+.about-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#0d0f14;margin-bottom:18px}
+.about-card h3{font-size:18px;font-weight:700;margin-bottom:4px}
+.about-card .handle{font-size:12px;font-family:var(--mono);color:var(--muted);margin-bottom:16px}
+.about-card p{font-size:13px;color:#c0c8d8;line-height:1.85;margin-bottom:12px}
+.about-card p:last-of-type{margin-bottom:0}
+
+/* Contact */
+.contact-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;padding-top:20px;border-top:1px solid var(--border)}
+.contact-chip{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-family:var(--mono);padding:8px 16px;border-radius:8px;border:1px solid var(--border);color:var(--muted);transition:all .2s;text-decoration:none}
+.contact-chip:hover{color:var(--text);border-color:#ffffff30;text-decoration:none}
+.contact-chip.email:hover{color:var(--accent);border-color:#4ade8040}
+.contact-chip.github:hover{color:var(--accent2);border-color:#22d3ee40}
+.contact-chip.trakteer:hover{color:#ff6b35;border-color:#ff6b3540}
+
+/* Footer */
+.footer{margin-top:56px;padding-top:24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-text{font-size:11px;font-family:var(--mono);color:#4b5563}
+.footer-ver{font-size:11px;font-family:var(--mono);color:var(--accent);background:#4ade8010;border:1px solid #4ade8020;padding:3px 10px;border-radius:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-brand">Net Worth <span>Tracker</span></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <a href="index.html" class="nav-link">← Tracker</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="global.html" class="nav-link" style="color:var(--accent2);border-color:#22d3ee28">🌍 Global Stats</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>Change<span>log</span></h1>
+    <div class="sub">Riwayat update dan perbaikan — dari v1.0 sampai sekarang.</div>
+    <div class="accent-bar"></div>
+  </div>
+
+  <!-- ── Changelog ── -->
+  <div class="section">
+    <div class="section-label">Riwayat Versi</div>
+
+    <!-- v1.5.3 -->
+    <div class="version-block">
+      <div class="version-header">
+        <span class="version-num">v1.5.3</span>
+        <span class="version-badge badge-small">patch</span>
+        <span class="version-date">18 Mei 2026</span>
+      </div>
+      <ul class="patch-list">
+        <li><span class="patch-tag tag-mid">feat</span>Refresh cooldown 5 menit — tombol refresh di-lock selama 5 menit setelah dipakai. Counter mundur tampil langsung di dalam tombol (misal "↻ 4:32")</li>
+        <li><span class="patch-tag tag-small">feat</span>Tombol (?) di sebelah refresh — hover untuk lihat penjelasan kenapa ada rate limit (free-tier API, biar tetap gratis untuk semua)</li>
+        <li><span class="patch-tag tag-small">fix</span>Restore link "about" di nav utama yang hilang</li>
+      </ul>
+    </div>
+
+    <!-- v1.5.2 -->
+    <div class="version-block">
+      <div class="version-header">
+        <span class="version-num">v1.5.2</span>
+        <span class="version-badge badge-small">patch</span>
+        <span class="version-date">18 Mei 2026</span>
+      </div>
+      <ul class="patch-list">
+        <li><span class="patch-tag tag-mid">feat</span>Header kolom "Value" dan "Rate" sekarang dinamis — otomatis update saat kamu ganti base currency (misal "Value (USD)", "Rate ke SGD")</li>
+        <li><span class="patch-tag tag-small">fix</span>Kolom Jumlah di tabel Bank sekarang selalu tampil dalam mata uang aslinya (misal "Rp 15.000.000" bukan "S$879")</li>
+        <li><span class="patch-tag tag-small">fix</span>Kolom Rate ke IDR sekarang menampilkan konversi ke currency yang dipilih, bukan selalu ke IDR. IDR account tampil sebagai "Rp 17.491/USD" (lebih intuitif)</li>
+        <li><span class="patch-tag tag-small">fix</span>Hapus placeholder "(Rp)" dari input nilai properti</li>
+        <li><span class="patch-tag tag-small">fix</span>KV write limit Cloudflare — hapus ticker hit-count analytics, batasi global stats tracking ke 1x per IP per hari. Turun dari ~17 KV writes per refresh jadi maks 4 per user per hari</li>
+        <li><span class="patch-tag tag-small">worker</span>Fix changePercent untuk ETF (GLD, SLV, QQQ dll) — sebelumnya pakai <code>meta.chartPreviousClose</code> yang tidak reliable di chart 2 tahun, sekarang pakai data closes array</li>
+      </ul>
+    </div>
+
+    <!-- v1.5.x -->
+    <div class="version-block">
+      <div class="version-header">
+        <span class="version-num">v1.5.0 – v1.5.1</span>
+        <span class="version-badge badge-big">major</span>
+        <span class="snapshot-chip">📸 snapshot</span>
+        <span class="version-date">17 Mei 2026</span>
+      </div>
+      <ul class="patch-list">
+        <li><span class="patch-tag tag-big">feat</span>Code split — monolithic HTML dipecah jadi 9 JS module (config / lang / state / format / api / render / actions / export / init) + external CSS. <code>networth-latest.html</code> sekarang auto-generated bundle via versionctl.py</li>
+        <li><span class="patch-tag tag-big">feat</span>i18n — full support Bahasa Indonesia &amp; English. Auto-detect dari browser locale. Semua string UI ditranslasi via <code>t()</code> + atribut <code>data-i18n</code></li>
+        <li><span class="patch-tag tag-mid">feat</span>Settings panel — gear icon ⚙ buka slide-in panel dari kanan. Ganti currency &amp; bahasa langsung dari sini tanpa cluttering header</li>
+        <li><span class="patch-tag tag-small">fix</span>Rename section "Indonesian Stocks" → "Stocks" — section ini cover IDX dan US market sekaligus</li>
+        <li><span class="patch-tag tag-small">fix</span>Regression fix: <code>applyLang()</code> dihapus dari <code>renderStocks()</code> — tiap render saham reset timestamp "Diperbarui:" dan breakdown aset balik ke placeholder</li>
+        <li><span class="patch-tag tag-small">fix</span>Crypto amount locale — angka seperti 3.1747 USDC tampil benar di mode USD (sebelumnya 3,1747 karena pakai locale id-ID)</li>
+        <li><span class="patch-tag tag-small">fix</span>Hapus hardcoded "(IDR)" dari subtitle section Crypto dan header kolom Price</li>
+      </ul>
+    </div>
+
+    <!-- v1.4.x -->
+    <div class="version-block">
+      <div class="version-header">
+        <span class="version-num">v1.4.x</span>
+        <span class="version-badge badge-mid">mid update</span>
+        <span class="snapshot-chip">📸 snapshot</span>
+        <span class="version-date">16–17 Mei 2026</span>
+      </div>
+      <ul class="patch-list">
+        <li><span class="patch-tag tag-big">feat</span>Multi-currency display — pilih base currency IDR / USD / SGD / EUR / JPY / MYR / CNY. Semua nilai di-convert real-time via live FX rates</li>
+        <li><span class="patch-tag tag-mid">feat</span>FIRE Analysis tab — gap calculator: butuh berapa passive income lagi buat FIRE? Lengkap dengan tips actionable</li>
+        <li><span class="patch-tag tag-mid">feat</span>3-donut grid di Insights — allocation mix / currency exposure / sector breakdown dalam satu tampilan</li>
+        <li><span class="patch-tag tag-mid">feat</span>Passive income breakdown card — dividen dan sewa ditampilkan terpisah</li>
+        <li><span class="patch-tag tag-mid">feat</span>Global Stats page — live counter: negara pengguna, ticker unik yang pernah di-track, unique visitors</li>
+        <li><span class="patch-tag tag-mid">worker</span>KV country tracking — request dicatat negara asalnya via Cloudflare cf.country. IP di-hash SHA-256, tidak pernah disimpan raw</li>
+        <li><span class="patch-tag tag-mid">worker</span>Unique visitor tracking — 365-day dedup, bukan sekadar page hit counter</li>
+        <li><span class="patch-tag tag-mid">worker</span>KV sector auto-cache — sektor dari Yahoo Finance di-cache di KV 90 hari. Ticker baru auto-fetch sektornya</li>
+        <li><span class="patch-tag tag-mid">worker</span>IDX &amp; US sector fallback map — hardcoded sektor untuk BBCA, TLKM, NVDA, AAPL dll supaya tidak bergantung Yahoo assetProfile yang sering lambat</li>
+        <li><span class="patch-tag tag-small">feat</span>US stocks support fractional shares — bisa input 0.5 lot. IDX tetap enforces whole lots</li>
+        <li><span class="patch-tag tag-small">fix</span>setCurrency sekarang async — auto-fetch FX jika belum ada sebelum re-render</li>
+        <li><span class="patch-tag tag-small">fix</span>About page dipisah dari Changelog jadi halaman tersendiri</li>
+        <li><span class="patch-tag tag-small">fix</span>Ticker input auto-caps, hapus broken flag emoji dari country chips</li>
+        <li><span class="patch-tag tag-small">fix</span>BRK-B fix di worker — syntax error pada key ticker yang pakai tanda hubung</li>
+      </ul>
+    </div>
+
+    <!-- v1.3.x -->
+    <div class="version-block">
+      <div class="version-header">
+        <span class="version-num">v1.3.x</span>
+        <span class="version-badge badge-big">major</span>
+        <span class="snapshot-chip">📸 snapshot</span>
+        <span class="version-date">15 Mei 2026</span>
+      </div>
+      <ul class="patch-list">
+        <li><span class="patch-tag tag-big">feat</span>Allocation donut chart — Canvas donut 5 segmen (Saham/Crypto/Bank/Emas/Properti) dengan legend nilai &amp; persentase di tab Insights</li>
+        <li><span class="patch-tag tag-big">feat</span>CSV export — semua aset dalam satu file, lengkap dengan P&amp;L, ROI, yield. Buka langsung di Excel/Sheets</li>
+        <li><span class="patch-tag tag-big">feat</span>PDF export — print-friendly layout via browser print, semua tombol &amp; input disembunyikan</li>
+        <li><span class="patch-tag tag-small">fix</span>Estimasi Pengeluaran Bulanan — tampil formatted Rp di samping input (live update saat mengetik)</li>
+      </ul>
+    </div>
+
+    <!-- v1.2.x -->
+    <div class="version-block">
+      <div class="version-header">
+        <span class="version-num">v1.2.x</span>
+        <span class="version-badge badge-mid">mid update</span>
+        <span class="snapshot-chip">📸 snapshot</span>
+        <span class="version-date">15 Mei 2026</span>
+      </div>
+      <ul class="patch-list">
+        <li><span class="patch-tag tag-big">worker</span>Rewrite Cloudflare Worker — auto-detect IDX vs US stock, dividend history 2 tahun, sektor/industri, FX rates, gold price (XAU/IDR)</li>
+        <li><span class="patch-tag tag-mid">feat</span>Support US stocks — tambah market selector IDX/US di form tambah saham</li>
+        <li><span class="patch-tag tag-mid">feat</span>Kolom Harga Beli opsional — unlock P&amp;L dan ROI% otomatis</li>
+        <li><span class="patch-tag tag-mid">feat</span>Sektor Saham — breakdown per sektor di tab Insights (auto-fetch dari Yahoo Finance)</li>
+        <li><span class="patch-tag tag-mid">feat</span>Hover tooltip pada header tabel — ganti halaman tutorial terpisah</li>
+        <li><span class="patch-tag tag-small">fix</span>USD→IDR conversion: FX di-fetch lebih dulu, baru konversi harga saham US</li>
+        <li><span class="patch-tag tag-small">fix</span>US stock lot size: 1 lot = 1 share (bukan 100 seperti IDX)</li>
+        <li><span class="patch-tag tag-small">fix</span>Kolom harga saham US tampil dalam USD ($), kolom nilai dalam IDR (Rp)</li>
+      </ul>
+    </div>
+
+    <!-- v1.1.0 -->
+    <div class="version-block">
+      <div class="version-header">
+        <span class="version-num">v1.1.0</span>
+        <span class="version-badge badge-mid">mid update</span>
+        <span class="snapshot-chip">📸 snapshot</span>
+        <span class="version-date">15 Mei 2026</span>
+      </div>
+      <ul class="patch-list">
+        <li><span class="patch-tag tag-mid">feat</span>FIRE progress bar sekarang menggunakan passive income vs pengeluaran bulanan (cash flow based)</li>
+        <li><span class="patch-tag tag-small">fix</span>Safe Withdrawal Rate hanya menghitung aset likuid — properti tidak dihitung</li>
+        <li><span class="patch-tag tag-mid">feat</span>Passive income card gabungan — per bulan &amp; per tahun dalam 1 card</li>
+        <li><span class="patch-tag tag-mid">feat</span>Footer total Est. Dividen di tabel Saham dan Est. Sewa di tabel Properti</li>
+        <li><span class="patch-tag tag-small">fix</span>Annual passive income sekarang include sewa × 12, bukan hanya dividen saham</li>
+        <li><span class="patch-tag tag-small">fix</span>Format angka pakai dot separator (Rp 2.600.000) — hapus singkatan jt/M</li>
+        <li><span class="patch-tag tag-mid">feat</span>Header redesign — tagline, accent line, versi ditampilkan</li>
+        <li><span class="patch-tag tag-mid">feat</span>Dev branch setup — workflow deploy aman via merge dev → main</li>
+      </ul>
+    </div>
+
+    <!-- v1.0.1 -->
+    <div class="version-block">
+      <div class="version-header">
+        <span class="version-num">v1.0.1</span>
+        <span class="version-badge badge-small">patch</span>
+        <span class="snapshot-chip">📸 snapshot</span>
+        <span class="version-date">15 Mei 2026</span>
+      </div>
+      <ul class="patch-list">
+        <li><span class="patch-tag tag-small">init</span>Initial release — IDX saham, crypto, bank/cash, emas, properti</li>
+        <li><span class="patch-tag tag-small">feat</span>Insights tab — FIRE number, safe withdrawal, passive income, alokasi aset</li>
+        <li><span class="patch-tag tag-small">feat</span>Cloudflare Worker untuk fetch harga saham &amp; dividen via Yahoo Finance</li>
+        <li><span class="patch-tag tag-small">feat</span>LocalStorage — data tersimpan di browser, no login needed</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-text">© 2026 Newlegendanaga · Net Worth Tracker · Open Source</div>
+    <div style="display:flex;gap:8px">
+      <a href="about.html" style="font-size:11px;font-family:var(--mono);color:var(--muted);text-decoration:none">About →</a>
+      <a href="global.html" style="font-size:11px;font-family:var(--mono);color:var(--accent2);text-decoration:none">🌍 Global Stats →</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
