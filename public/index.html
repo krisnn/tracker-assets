@@ -1,418 +1,471 @@
 <!-- Project v1.5.1 | patches_since_snap:1 -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Net Worth Tracker · Indonesia</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Net Worth Tracker · Indonesia</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Sora:wght@300;400;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
-<!-- CORS warning (shown only when opened via file://) -->
-<div id="file-warning" style="display:none;background:#f59e0b18;border-bottom:1px solid #f59e0b40;padding:10px 48px;font-size:12px;font-family:var(--mono);color:#f59e0b"></div>
-
-<!-- Settings overlay (closes panel when clicked) -->
-<div id="settings-overlay" class="settings-overlay" onclick="closeSettings()"></div>
-
-<!-- Settings panel (slides in from right) -->
-<div id="settings-panel" class="settings-panel">
-  <div class="settings-header">
-    <div class="settings-title" data-i18n="settings.title">Settings</div>
-    <button class="settings-close" onclick="closeSettings()">&#x2715;</button>
+  <!-- CORS warning (shown only when opened via file://) -->
+  <div id="file-warning"
+    style="display:none;background:#f59e0b18;border-bottom:1px solid #f59e0b40;padding:10px 48px;font-size:12px;font-family:var(--mono);color:#f59e0b">
   </div>
 
-  <!-- Currency -->
-  <div class="settings-section">
-    <div class="settings-label" data-i18n="settings.currency">Display Currency</div>
-    <div id="currency-chips" class="chip-group"><!-- filled by renderSettingsChips() --></div>
-  </div>
+  <!-- Settings overlay (closes panel when clicked) -->
+  <div id="settings-overlay" class="settings-overlay" onclick="closeSettings()"></div>
 
-  <div class="settings-divider"></div>
-
-  <!-- Language -->
-  <div class="settings-section">
-    <div class="settings-label" data-i18n="settings.language">Language</div>
-    <div class="chip-group">
-      <button id="lang-btn-en" class="setting-chip" onclick="setLang('en')">English</button>
-      <button id="lang-btn-id" class="setting-chip" onclick="setLang('id')">Bahasa Indonesia</button>
+  <!-- Settings panel (slides in from right) -->
+  <div id="settings-panel" class="settings-panel">
+    <div class="settings-header">
+      <div class="settings-title" data-i18n="settings.title">Settings</div>
+      <button class="settings-close" onclick="closeSettings()">&#x2715;</button>
     </div>
-  </div>
 
-  <div class="settings-divider"></div>
-
-  <!-- Export -->
-  <div class="settings-section">
-    <div class="settings-label">Export</div>
-    <div class="chip-group">
-      <button class="setting-chip" onclick="exportCSV();closeSettings()" style="flex:1">↓ CSV</button>
-      <button class="setting-chip" onclick="exportPDF();closeSettings()" style="flex:1">↓ PDF</button>
+    <!-- Currency -->
+    <div class="settings-section">
+      <div class="settings-label" data-i18n="settings.currency">Display Currency</div>
+      <div id="currency-chips" class="chip-group"><!-- filled by renderSettingsChips() --></div>
     </div>
-  </div>
 
-  <div class="settings-divider"></div>
+    <div class="settings-divider"></div>
 
-  <!-- Google Sheets -->
-  <div class="settings-section">
-    <div class="settings-label" data-i18n="settings.sheetUrl">Google Sheets URL</div>
-    <input type="text" id="setting-sheet-url" class="lot-edit" style="width:100%;margin-top:8px;font-size:12px;padding:6px;border:1px solid var(--border);border-radius:6px;background:var(--surface)" onchange="updateSheetUrl(this.value)" placeholder="https://script.google.com/macros/...">
-  </div>
-
-  <div class="settings-divider"></div>
-
-  <!-- Nav links -->
-  <div class="settings-section">
-    <div class="settings-label">Links</div>
-    <div style="display:flex;flex-direction:column;gap:6px">
-      <a href="changelog.html" class="setting-chip" style="text-align:center;text-decoration:none">📋 Changelog</a>
-      <a href="about.html" class="setting-chip" style="text-align:center;text-decoration:none">👤 About</a>
-      <a href="global.html" class="setting-chip" style="text-align:center;text-decoration:none;color:var(--accent2)">🌍 Global Stats</a>
+    <!-- Language -->
+    <div class="settings-section">
+      <div class="settings-label" data-i18n="settings.language">Language</div>
+      <div class="chip-group">
+        <button id="lang-btn-en" class="setting-chip" onclick="setLang('en')">English</button>
+        <button id="lang-btn-id" class="setting-chip" onclick="setLang('id')">Bahasa Indonesia</button>
+      </div>
     </div>
-  </div>
-</div>
 
-<!-- ======================== App ======================== -->
-<div class="app">
+    <div class="settings-divider"></div>
 
-  <!-- Header -->
-  <div class="header">
-    <div class="header-left">
-      <h1>Net Worth Tracker<span class="accent-line"></span></h1>
-      <div class="tagline" data-i18n="header.tagline">your bag won't track itself &#x1F480;</div>
-      <div class="meta"><span class="dot"></span><span data-i18n="header.meta">IDX · Gold · Property — Indonesia</span></div>
+    <!-- Export -->
+    <div class="settings-section">
+      <div class="settings-label">Export</div>
+      <div class="chip-group">
+        <button class="setting-chip" onclick="exportCSV();closeSettings()" style="flex:1">↓ CSV</button>
+        <button class="setting-chip" onclick="exportPDF();closeSettings()" style="flex:1">↓ PDF</button>
+      </div>
     </div>
-    <div class="header-right">
-      <div class="last-update" id="last-update">Not updated yet</div>
-      <div class="header-actions">
-        <button class="export-btn" onclick="exportCSV()">&#x2193; CSV</button>
-        <button class="export-btn" onclick="exportPDF()">&#x2193; PDF</button>
-        <button class="export-btn" id="btn-load" onclick="loadFromGoogleSheets()" style="border-color:#3b82f6;color:#3b82f6" data-i18n="btn.load">☁️ Load</button>
-        <button class="export-btn" id="btn-save" onclick="saveToGoogleSheets()" style="border-color:#10b981;color:#10b981" data-i18n="btn.save">☁️ Save</button>
-        <a href="changelog.html" class="hdr-nav" style="font-size:11px;font-family:var(--mono);color:var(--muted);padding:7px 12px;border:1px solid var(--border);border-radius:8px;text-decoration:none;transition:all .2s" onmouseover="this.style.color='var(--text)';this.style.borderColor='#ffffff30'" onmouseout="this.style.color='var(--muted)';this.style.borderColor='var(--border)'">changelog</a>
-        <a href="about.html" class="hdr-nav" style="font-size:11px;font-family:var(--mono);color:var(--muted);padding:7px 12px;border:1px solid var(--border);border-radius:8px;text-decoration:none;transition:all .2s" onmouseover="this.style.color='var(--text)';this.style.borderColor='#ffffff30'" onmouseout="this.style.color='var(--muted)';this.style.borderColor='var(--border)'">about</a>
-        <a href="global.html" class="hdr-nav" style="font-size:11px;font-family:var(--mono);color:var(--accent2);padding:7px 12px;border:1px solid #22d3ee28;border-radius:8px;text-decoration:none;transition:all .2s" onmouseover="this.style.borderColor='#22d3ee60'" onmouseout="this.style.borderColor='#22d3ee28'">&#x1F30D; global stats</a>
-        <button class="refresh-btn" id="refresh-btn" onclick="refreshAll()">
-          <span id="refresh-icon">&#x21BB;</span> <span id="refresh-label" data-i18n="header.refresh">Refresh Prices</span>
-        </button>
-        <span class="info-tip" tabindex="0">?
-          <div class="tip-bubble" data-i18n="header.rateLimitTip">Prices refresh at most once every 5 minutes. This tracker runs on a free-tier API — we hit our daily limit overnight from unexpected traffic. Rate limiting keeps it free for everyone 🙏</div>
-        </span>
-        <button class="settings-btn" onclick="openSettings()">&#x2699;</button>
+
+    <div class="settings-divider"></div>
+
+    <!-- Google Sheets -->
+    <div class="settings-section">
+      <div class="settings-label" data-i18n="settings.sheetUrl">Google Sheets URL</div>
+      <input type="text" id="setting-sheet-url" class="lot-edit"
+        style="width:100%;margin-top:8px;font-size:12px;padding:6px;border:1px solid var(--border);border-radius:6px;background:var(--surface)"
+        onchange="updateSheetUrl(this.value)" placeholder="https://script.google.com/macros/...">
+    </div>
+
+    <div class="settings-divider"></div>
+
+    <!-- Nav links -->
+    <div class="settings-section">
+      <div class="settings-label">Links</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <a href="changelog.html" class="setting-chip" style="text-align:center;text-decoration:none">📋 Changelog</a>
+        <a href="about.html" class="setting-chip" style="text-align:center;text-decoration:none">👤 About</a>
+        <a href="global.html" class="setting-chip"
+          style="text-align:center;text-decoration:none;color:var(--accent2)">🌍 Global Stats</a>
       </div>
     </div>
   </div>
 
-  <!-- Summary cards -->
-  <div class="summary fade-in">
-    <div class="card">
-      <div class="card-label" data-i18n="summary.totalNW">Total Net Worth</div>
-      <div class="card-value green" id="total-nw">&#x2014;</div>
-      <div class="card-sub" id="nw-breakdown" data-i18n="summary.addAssets">Add assets to get started</div>
-    </div>
-    <div class="card">
-      <div class="card-label" data-i18n="summary.passiveIncome">Passive Income/Month</div>
-      <div class="card-value cyan" id="monthly-div">&#x2014;</div>
-      <div class="card-sub" data-i18n="summary.divRent">Dividends + property rent</div>
-    </div>
-    <div class="card">
-      <div class="card-label" data-i18n="summary.yield">Portfolio Yield</div>
-      <div class="card-value amber" id="yield-pct">&#x2014; %</div>
-      <div class="card-sub" data-i18n="summary.divNW">Dividends / Total NW</div>
-    </div>
-  </div>
+  <!-- ======================== App ======================== -->
+  <div class="app">
 
-  <!-- Tabs -->
-  <div class="tabs">
-    <button class="tab active" onclick="switchTab('holdings',this)" data-i18n="tab.holdings">Holdings</button>
-    <button class="tab" onclick="switchTab('insights',this)" data-i18n="tab.insights">Insights</button>
-  </div>
-
-  <!-- ====== HOLDINGS TAB ====== -->
-  <div id="tab-holdings">
-
-    <!-- IDX / US Stocks -->
-    <div class="section fade-in">
-      <div class="section-header">
-        <div class="section-title">
-          <span data-i18n="section.stocks">Stocks</span>
-        </div>
-        <div class="section-val" id="stock-total">&#x2014;</div>
+    <!-- Header -->
+    <div class="header">
+      <div class="header-left">
+        <h1>Net Worth Tracker<span class="accent-line"></span></h1>
+        <div class="tagline" data-i18n="header.tagline">your bag won't track itself &#x1F480;</div>
+        <div class="meta"><span class="dot"></span><span data-i18n="header.meta">IDX · Gold · Property —
+            Indonesia</span></div>
       </div>
-      <div class="table-wrap">
-        <table id="t-stocks">
-          <thead><tr>
-            <th style="width:70px"  data-i18n="col.ticker">Ticker</th>
-            <th style="width:50px"  data-i18n="col.market">Mkt</th>
-            <th style="width:70px"  data-i18n="col.lots">Lots</th>
-            <th class="right" style="width:130px" data-i18n="col.price">Price</th>
-            <th class="right" style="width:130px" data-i18n="col.value">Value</th>
-            <th class="right" style="width:140px" data-i18n="col.yieldLast">Yield (last yr)</th>
-            <th class="right" style="width:120px" data-i18n="col.divPerShare">Div/share</th>
-            <th class="right" style="width:120px" data-i18n="col.annualDiv">Est. Div/yr</th>
-            <th class="right" style="width:110px">
-              <span data-i18n="col.buyPrice">Buy Price</span>
-              <span class="th-help" style="color:var(--accent2);font-size:10px">?<div class="tip">
-                <strong data-i18n="tip.buyPrice">Buy Price</strong><br>
-                <span data-i18n="tip.buyPriceDesc">Average buy price per share.</span><br>
-                <span class="tip-badge">IDX</span><span data-i18n="tip.buyPriceIDX">in Rupiah (Rp)</span><br>
-                <span class="tip-badge">US</span><span data-i18n="tip.buyPriceUS">in USD ($)</span><br><br>
-                <span data-i18n="tip.buyPriceNote">Enables P&amp;L and ROI% columns automatically.</span>
-              </div></span>
-            </th>
-            <th class="right" style="width:110px" data-i18n="col.pl">P&amp;L</th>
-            <th class="right" style="width:70px"  data-i18n="col.roi">ROI</th>
-            <th class="right" style="width:110px">
-              <span data-i18n="col.expDiv">Exp. Div</span>
-              <span class="th-help" style="color:var(--accent2);font-size:10px">?<div class="tip">
-                <strong data-i18n="tip.expDiv">Expected Dividend</strong><br>
-                <span data-i18n="tip.expDivDesc">Override estimated dividend per share per year.</span><br>
-                <span class="tip-badge">IDX</span><span data-i18n="tip.expDivIDX">in Rupiah</span><br>
-                <span class="tip-badge">US</span><span data-i18n="tip.expDivUS">in USD</span><br><br>
-                <span data-i18n="tip.expDivNote">Leave empty to use auto data from Yahoo Finance.</span>
-              </div></span>
-            </th>
-            <th style="width:40px"></th>
-          </tr></thead>
-          <tbody id="stock-tbody"></tbody>
-        </table>
-      </div>
-      <div class="add-form">
-        <select id="s-market" style="width:70px" onchange="updateLotsInput(this.value)">
-          <option value="IDX">IDX</option>
-          <option value="US">US</option>
-        </select>
-        <input id="s-ticker" placeholder="BBCA / AAPL" style="width:120px;text-transform:uppercase" maxlength="10" oninput="this.value=this.value.toUpperCase()">
-        <input id="s-lots" type="number" min="1" step="1" value="1" style="width:70px" placeholder="Lot">
-        <span style="font-size:11px;font-family:var(--mono);color:var(--muted)" data-i18n="form.autoHint">div + sector: auto &#x2713;</span>
-        <button class="btn btn-primary" onclick="addStock()" data-i18n="btn.add">+ Add</button>
-      </div>
-      <div id="stock-error" class="error-msg" style="display:none"></div>
-    </div>
-
-
-
-    <!-- Bank / Cash -->
-    <div class="section fade-in">
-      <div class="section-header">
-        <div class="section-title">
-          <span class="badge badge-green">Bank</span>
-          <span data-i18n="section.bank">Savings &amp; Cash</span>
-        </div>
-        <div class="section-val" id="bank-total">&#x2014;</div>
-      </div>
-      <div class="table-wrap">
-        <table id="t-bank">
-          <thead><tr>
-            <th data-i18n="col.name">Name</th>
-            <th data-i18n="col.currency">Currency</th>
-            <th class="right" data-i18n="col.amount">Amount</th>
-            <th class="right" data-i18n="col.rateIDR">Rate to IDR</th>
-            <th class="right" data-i18n="col.valueIDR">Value (IDR)</th>
-            <th class="right" data-i18n="col.fx24h">24h FX</th>
-            <th></th>
-          </tr></thead>
-          <tbody id="bank-tbody"></tbody>
-        </table>
-      </div>
-      <div class="add-form">
-        <input id="b-name" placeholder="Name (BCA USD)" style="width:140px" data-i18n-placeholder="form.bankName">
-        <select id="b-currency" style="width:90px">
-          <option value="IDR">IDR</option>
-          <option value="USD">USD</option>
-          <option value="SGD">SGD</option>
-          <option value="JPY">JPY</option>
-          <option value="CNY">CNY</option>
-          <option value="EUR">EUR</option>
-          <option value="MYR">MYR</option>
-        </select>
-        <input id="b-amount" type="number" min="0" step="any" value="0" style="width:130px" placeholder="Amount">
-        <button class="btn btn-primary" onclick="addBank()" data-i18n="btn.add">+ Add</button>
-      </div>
-    </div>
-
-    <!-- Gold -->
-    <div class="section fade-in">
-      <div class="section-header">
-        <div class="section-title">
-          <span class="badge badge-amber">Emas</span>
-          <span data-i18n="section.gold">Gold · XAU · auto price</span>
-        </div>
-        <div class="section-val" id="gold-total">&#x2014;</div>
-      </div>
-      <div class="table-wrap">
-        <table id="t-gold">
-          <thead><tr>
-            <th data-i18n="col.name">Name</th>
-            <th class="right" data-i18n="col.grams">Grams</th>
-            <th class="right" data-i18n="col.pricePerGram">Price/gram</th>
-            <th class="right" data-i18n="col.valueIDR">Value (IDR)</th>
-            <th class="right" data-i18n="col.24h">24h</th>
-            <th class="right" data-i18n="col.1m">1 Month</th>
-            <th class="right" data-i18n="col.ytd">YTD</th>
-            <th class="right" data-i18n="col.1y">1 Year</th>
-            <th></th>
-          </tr></thead>
-          <tbody id="gold-tbody"></tbody>
-        </table>
-      </div>
-      <div class="add-form">
-        <input id="g-name" placeholder="Name (Antam, Jewelry)" style="width:190px" data-i18n-placeholder="form.goldName">
-        <input id="g-grams" type="number" min="0" step="any" value="0" style="width:100px" placeholder="Grams">
-        <button class="btn btn-primary" onclick="addGold()" data-i18n="btn.add">+ Add</button>
-        <span id="gold-price-display" style="font-size:12px;color:#b0bac8;font-family:var(--mono);margin-left:8px"></span>
-      </div>
-    </div>
-
-    <!-- Property -->
-    <div class="section fade-in">
-      <div class="section-header">
-        <div class="section-title">
-          <span class="badge badge-cyan">Properti</span>
-          <span data-i18n="section.property">Property · Manual snapshot</span>
-        </div>
-        <div class="section-val" id="property-total">&#x2014;</div>
-      </div>
-      <div class="table-wrap">
-        <table id="t-prop">
-          <thead><tr>
-            <th data-i18n="col.name">Name</th>
-            <th data-i18n="col.location">Location</th>
-            <th data-i18n="col.status">Status</th>
-            <th class="right" data-i18n="col.valueIDR">Value (IDR)</th>
-            <th class="right" data-i18n="col.rent">Rent/mo</th>
-            <th class="right" data-i18n="col.vsSnapshot">vs Snapshot</th>
-            <th></th>
-          </tr></thead>
-          <tbody id="property-tbody"></tbody>
-        </table>
-      </div>
-      <div class="add-form">
-        <input id="p-name" placeholder="Property name" style="width:150px">
-        <input id="p-location" placeholder="Location" style="width:120px">
-        <select id="p-status" style="width:150px">
-          <option value="dihuni">Owner-occupied</option>
-          <option value="disewakan">Rented</option>
-          <option value="kosong">Vacant</option>
-        </select>
-        <input id="p-value" type="number" min="0" step="any" placeholder="Value" style="width:150px">
-        <input id="p-rent" type="number" min="0" step="any" placeholder="Rent/mo (optional)" style="width:170px">
-        <button class="btn btn-primary" onclick="addProperty()" data-i18n="btn.add">+ Add</button>
-      </div>
-    </div>
-  </div><!-- /tab-holdings -->
-
-  <!-- ====== INSIGHTS TAB ====== -->
-  <div id="tab-insights" style="display:none">
-    <div class="insights fade-in">
-      <div class="insight-card">
-        <div class="insight-title" data-i18n="insight.passiveIncome">Passive Income</div>
-        <div class="insight-val green" id="i-monthly">&#x2014;</div>
-        <div style="font-size:11px;color:var(--muted);font-family:var(--mono);margin-top:2px" data-i18n="insight.perMonth">per month</div>
-        <div id="i-passive-breakdown" style="margin-top:8px;font-size:11px;font-family:var(--mono);line-height:1.8"></div>
-        <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border)">
-          <div class="insight-val cyan" style="font-size:1.1rem" id="i-annual">&#x2014;</div>
-          <div style="font-size:11px;color:var(--muted);font-family:var(--mono);margin-top:2px" data-i18n="insight.perYear">per year</div>
+      <div class="header-right">
+        <div class="last-update" id="last-update">Not updated yet</div>
+        <div class="header-actions">
+          <button class="export-btn" onclick="exportCSV()">&#x2193; CSV</button>
+          <button class="export-btn" onclick="exportPDF()">&#x2193; PDF</button>
+          <button class="export-btn" id="btn-load" onclick="loadFromGoogleSheets()"
+            style="border-color:#3b82f6;color:#3b82f6" data-i18n="btn.load">☁️ Load</button>
+          <button class="export-btn" id="btn-save" onclick="saveToGoogleSheets()"
+            style="border-color:#10b981;color:#10b981" data-i18n="btn.save">☁️ Save</button>
+          <a href="changelog.html" class="hdr-nav"
+            style="font-size:11px;font-family:var(--mono);color:var(--muted);padding:7px 12px;border:1px solid var(--border);border-radius:8px;text-decoration:none;transition:all .2s"
+            onmouseover="this.style.color='var(--text)';this.style.borderColor='#ffffff30'"
+            onmouseout="this.style.color='var(--muted)';this.style.borderColor='var(--border)'">changelog</a>
+          <a href="about.html" class="hdr-nav"
+            style="font-size:11px;font-family:var(--mono);color:var(--muted);padding:7px 12px;border:1px solid var(--border);border-radius:8px;text-decoration:none;transition:all .2s"
+            onmouseover="this.style.color='var(--text)';this.style.borderColor='#ffffff30'"
+            onmouseout="this.style.color='var(--muted)';this.style.borderColor='var(--border)'">about</a>
+          <a href="global.html" class="hdr-nav"
+            style="font-size:11px;font-family:var(--mono);color:var(--accent2);padding:7px 12px;border:1px solid #22d3ee28;border-radius:8px;text-decoration:none;transition:all .2s"
+            onmouseover="this.style.borderColor='#22d3ee60'" onmouseout="this.style.borderColor='#22d3ee28'">&#x1F30D;
+            global stats</a>
+          <button class="refresh-btn" id="refresh-btn" onclick="refreshAll()">
+            <span id="refresh-icon">&#x21BB;</span> <span id="refresh-label" data-i18n="header.refresh">Refresh
+              Prices</span>
+          </button>
+          <span class="info-tip" tabindex="0">?
+            <div class="tip-bubble" data-i18n="header.rateLimitTip">Prices refresh at most once every 5 minutes. This
+              tracker runs on a free-tier API — we hit our daily limit overnight from unexpected traffic. Rate limiting
+              keeps it free for everyone 🙏</div>
+          </span>
+          <button class="settings-btn" onclick="openSettings()">&#x2699;</button>
         </div>
       </div>
-      <div class="insight-card">
-        <div class="insight-title" data-i18n="insight.fireNumber">FIRE Number (25&#xD7;)</div>
-        <div class="insight-val amber" id="i-fire">&#x2014;</div>
-        <div class="insight-note" data-i18n="insight.fireNote">Target wealth for financial independence = monthly expenses &#xD7; 12 &#xD7; 25.</div>
+    </div>
+
+    <!-- Summary cards -->
+    <div class="summary fade-in">
+      <div class="card">
+        <div class="card-label" data-i18n="summary.totalNW">Total Net Worth</div>
+        <div class="card-value green" id="total-nw">&#x2014;</div>
+        <div class="card-sub" id="nw-breakdown" data-i18n="summary.addAssets">Add assets to get started</div>
       </div>
-      <div class="insight-card">
-        <div class="insight-title" data-i18n="insight.swr">Safe Withdrawal / Month</div>
-        <div class="insight-val green" id="i-swr">&#x2014;</div>
-        <div class="insight-note" data-i18n="insight.swrNote">4% rule: liquid assets &#xD7; 4% &#xF7; 12. Property excluded.</div>
+      <div class="card">
+        <div class="card-label" data-i18n="summary.passiveIncome">Passive Income/Month</div>
+        <div class="card-value cyan" id="monthly-div">&#x2014;</div>
+        <div class="card-sub" data-i18n="summary.divRent">Dividends + property rent</div>
+      </div>
+      <div class="card">
+        <div class="card-label" data-i18n="summary.yield">Portfolio Yield</div>
+        <div class="card-value amber" id="yield-pct">&#x2014; %</div>
+        <div class="card-sub" data-i18n="summary.divNW">Dividends / Total NW</div>
       </div>
     </div>
 
-    <!-- Monthly spend input -->
-    <div class="section fade-in" style="margin-bottom:16px">
-      <div class="section-header">
-        <div class="section-title" data-i18n="insight.monthlySpend">Monthly Expense Estimate</div>
-      </div>
-      <div class="add-form">
-        <input id="monthly-spend" type="number" value="15000000" style="width:180px" oninput="recalcInsights()">
-        <span id="spend-display" style="font-size:13px;color:var(--accent2);font-family:var(--mono);font-weight:600">Rp 15.000.000</span>
-        <span style="font-size:11px;color:var(--muted);font-family:var(--mono)" data-i18n="insight.spendHint">&#x2192; used for FIRE calculation</span>
-      </div>
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('holdings',this)" data-i18n="tab.holdings">Holdings</button>
+      <button class="tab" onclick="switchTab('insights',this)" data-i18n="tab.insights">Insights</button>
     </div>
 
-    <!-- Progress to FIRE -->
-    <div class="section fade-in" style="margin-bottom:16px">
-      <div class="section-header">
-        <div class="section-title" data-i18n="insight.fireProgress">Progress to FIRE</div>
-      </div>
-      <div style="padding:18px">
-        <div style="display:flex;justify-content:space-between;font-size:12px;font-family:var(--mono);color:var(--muted);margin-bottom:8px">
-          <span id="fire-progress-label">&#x2014;</span>
-          <span id="fire-target-label">&#x2014;</span>
+    <!-- ====== HOLDINGS TAB ====== -->
+    <div id="tab-holdings">
+
+      <!-- IDX / US Stocks -->
+      <div class="section fade-in">
+        <div class="section-header">
+          <div class="section-title">
+            <span data-i18n="section.stocks">Stocks</span>
+          </div>
+          <div class="section-val" id="stock-total">&#x2014;</div>
         </div>
-        <div style="background:var(--bg);border-radius:6px;height:10px;overflow:hidden">
-          <div id="fire-bar" style="height:10px;background:var(--accent);border-radius:6px;width:0%;transition:width .8s ease"></div>
+        <div class="table-wrap">
+          <table id="t-stocks">
+            <thead>
+              <tr>
+                <th style="width:70px" data-i18n="col.ticker">Ticker</th>
+                <th style="width:50px" data-i18n="col.market">Mkt</th>
+                <th style="width:70px" data-i18n="col.lots">Lots</th>
+                <th class="right" style="width:130px" data-i18n="col.price">Price</th>
+                <th class="right" style="width:130px" data-i18n="col.value">Value</th>
+                <th class="right" style="width:140px" data-i18n="col.yieldLast">Yield (last yr)</th>
+                <th class="right" style="width:120px" data-i18n="col.divPerShare">Div/share</th>
+                <th class="right" style="width:120px" data-i18n="col.annualDiv">Est. Div/yr</th>
+                <th class="right" style="width:110px">
+                  <span data-i18n="col.buyPrice">AVG Price</span>
+                  <span class="th-help" style="color:var(--accent2);font-size:10px">?<div class="tip">
+                      <strong data-i18n="tip.buyPrice">AVG Price</strong><br>
+                      <span data-i18n="tip.buyPriceDesc">Average buy price per share.</span><br>
+                      <span class="tip-badge">IDX</span><span data-i18n="tip.buyPriceIDX">in Rupiah (Rp)</span><br>
+                      <span class="tip-badge">US</span><span data-i18n="tip.buyPriceUS">in USD ($)</span><br><br>
+                      <span data-i18n="tip.buyPriceNote">Enables P&amp;L and ROI% columns automatically.</span>
+                    </div></span>
+                </th>
+                <th class="right" style="width:110px" data-i18n="col.pl">P&amp;L</th>
+                <th class="right" style="width:70px" data-i18n="col.roi">ROI</th>
+                <th class="right" style="width:110px">
+                  <span data-i18n="col.expDiv">Exp. Div</span>
+                  <span class="th-help" style="color:var(--accent2);font-size:10px">?<div class="tip">
+                      <strong data-i18n="tip.expDiv">Expected Dividend</strong><br>
+                      <span data-i18n="tip.expDivDesc">Override estimated dividend per share per year.</span><br>
+                      <span class="tip-badge">IDX</span><span data-i18n="tip.expDivIDX">in Rupiah</span><br>
+                      <span class="tip-badge">US</span><span data-i18n="tip.expDivUS">in USD</span><br><br>
+                      <span data-i18n="tip.expDivNote">Leave empty to use auto data from Yahoo Finance.</span>
+                    </div></span>
+                </th>
+                <th style="width:40px"></th>
+              </tr>
+            </thead>
+            <tbody id="stock-tbody"></tbody>
+          </table>
         </div>
-        <div style="text-align:center;margin-top:8px;font-size:12px;font-family:var(--mono);color:var(--muted)" id="fire-pct-label">0%</div>
-      </div>
-    </div>
-
-    <!-- FIRE Analysis tips -->
-    <div class="section fade-in" style="margin-bottom:16px">
-      <div class="section-header">
-        <div class="section-title" data-i18n="insight.fireAnalysis">FIRE Analysis</div>
-      </div>
-      <div class="fire-tips" id="fire-analysis">
-        <div class="empty" data-i18n="empty.addAssets">Add assets to see analysis</div>
-      </div>
-    </div>
-
-    <!-- Asset allocation donuts -->
-    <div class="section fade-in">
-      <div class="section-header">
-        <div class="section-title" data-i18n="insight.allocation">Asset Allocation</div>
-      </div>
-      <div class="donut-grid">
-        <div class="donut-card">
-          <div class="donut-card-title" data-i18n="donut.mix">Portfolio Mix</div>
-          <canvas id="donut-canvas" width="160" height="160" style="width:160px;height:160px"></canvas>
-          <div class="donut-legend" id="donut-legend"><div class="empty" style="font-size:11px">&#x2014;</div></div>
+        <div class="add-form">
+          <select id="s-market" style="width:70px" onchange="updateLotsInput(this.value)">
+            <option value="IDX">IDX</option>
+            <option value="US">US</option>
+          </select>
+          <input id="s-ticker" placeholder="BBCA / AAPL" style="width:120px;text-transform:uppercase" maxlength="10"
+            oninput="this.value=this.value.toUpperCase()">
+          <input id="s-lots" type="number" min="1" step="1" value="1" style="width:70px" placeholder="Lot">
+          <span style="font-size:11px;font-family:var(--mono);color:var(--muted)" data-i18n="form.autoHint">div +
+            sector: auto &#x2713;</span>
+          <button class="btn btn-primary" onclick="addStock()" data-i18n="btn.add">+ Add</button>
         </div>
-        <div class="donut-card">
-          <div class="donut-card-title" data-i18n="donut.currency">Currency</div>
-          <canvas id="currency-canvas" width="160" height="160" style="width:160px;height:160px"></canvas>
-          <div class="donut-legend" id="currency-legend"><div class="empty" style="font-size:11px">&#x2014;</div></div>
+        <div id="stock-error" class="error-msg" style="display:none"></div>
+      </div>
+
+
+
+      <!-- Bank / Cash -->
+      <div class="section fade-in">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="badge badge-green">Bank</span>
+            <span data-i18n="section.bank">Savings &amp; Cash</span>
+          </div>
+          <div class="section-val" id="bank-total">&#x2014;</div>
         </div>
-        <div class="donut-card">
-          <div class="donut-card-title" data-i18n="donut.sector">Sector</div>
-          <canvas id="sector-canvas" width="160" height="160" style="width:160px;height:160px"></canvas>
-          <div class="donut-legend" id="sector-donut-legend"><div class="empty" style="font-size:11px" data-i18n="empty.sector">Fetch prices for sector data</div></div>
+        <div class="table-wrap">
+          <table id="t-bank">
+            <thead>
+              <tr>
+                <th data-i18n="col.name">Name</th>
+                <th data-i18n="col.currency">Currency</th>
+                <th class="right" data-i18n="col.amount">Amount</th>
+                <th class="right" data-i18n="col.rateIDR">Rate to IDR</th>
+                <th class="right" data-i18n="col.valueIDR">Value (IDR)</th>
+                <th class="right" data-i18n="col.fx24h">24h FX</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="bank-tbody"></tbody>
+          </table>
+        </div>
+        <div class="add-form">
+          <input id="b-name" placeholder="Name (BCA USD)" style="width:140px" data-i18n-placeholder="form.bankName">
+          <select id="b-currency" style="width:90px">
+            <option value="IDR">IDR</option>
+            <option value="USD">USD</option>
+            <option value="SGD">SGD</option>
+            <option value="JPY">JPY</option>
+            <option value="CNY">CNY</option>
+            <option value="EUR">EUR</option>
+            <option value="MYR">MYR</option>
+          </select>
+          <input id="b-amount" type="number" min="0" step="any" value="0" style="width:130px" placeholder="Amount">
+          <button class="btn btn-primary" onclick="addBank()" data-i18n="btn.add">+ Add</button>
         </div>
       </div>
-      <div style="padding:0 20px 18px" id="alloc-bars"></div>
-    </div>
 
-    <!-- Sector breakdown bars -->
-    <div class="section fade-in">
-      <div class="section-header">
-        <div class="section-title" data-i18n="insight.sectorBreakdown">Stock Sectors</div>
+      <!-- Gold -->
+      <div class="section fade-in">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="badge badge-amber">Emas</span>
+            <span data-i18n="section.gold">Gold · XAU · auto price</span>
+          </div>
+          <div class="section-val" id="gold-total">&#x2014;</div>
+        </div>
+        <div class="table-wrap">
+          <table id="t-gold">
+            <thead>
+              <tr>
+                <th data-i18n="col.name">Name</th>
+                <th class="right" data-i18n="col.grams">Grams</th>
+                <th class="right" data-i18n="col.pricePerGram">Price/gram</th>
+                <th class="right" data-i18n="col.valueIDR">Value (IDR)</th>
+                <th class="right" data-i18n="col.24h">24h</th>
+                <th class="right" data-i18n="col.1m">1 Month</th>
+                <th class="right" data-i18n="col.ytd">YTD</th>
+                <th class="right" data-i18n="col.1y">1 Year</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="gold-tbody"></tbody>
+          </table>
+        </div>
+        <div class="add-form">
+          <input id="g-name" placeholder="Name (Antam, Jewelry)" style="width:190px"
+            data-i18n-placeholder="form.goldName">
+          <input id="g-grams" type="number" min="0" step="any" value="0" style="width:100px" placeholder="Grams">
+          <button class="btn btn-primary" onclick="addGold()" data-i18n="btn.add">+ Add</button>
+          <span id="gold-price-display"
+            style="font-size:12px;color:#b0bac8;font-family:var(--mono);margin-left:8px"></span>
+        </div>
       </div>
-      <div style="padding:18px" id="sector-bars">
-        <div class="empty" data-i18n="empty.sector">Sector data loaded after price fetch</div>
+
+      <!-- Property -->
+      <div class="section fade-in">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="badge badge-cyan">Properti</span>
+            <span data-i18n="section.property">Property · Manual snapshot</span>
+          </div>
+          <div class="section-val" id="property-total">&#x2014;</div>
+        </div>
+        <div class="table-wrap">
+          <table id="t-prop">
+            <thead>
+              <tr>
+                <th data-i18n="col.name">Name</th>
+                <th data-i18n="col.location">Location</th>
+                <th data-i18n="col.status">Status</th>
+                <th class="right" data-i18n="col.valueIDR">Value (IDR)</th>
+                <th class="right" data-i18n="col.rent">Rent/mo</th>
+                <th class="right" data-i18n="col.vsSnapshot">vs Snapshot</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="property-tbody"></tbody>
+          </table>
+        </div>
+        <div class="add-form">
+          <input id="p-name" placeholder="Property name" style="width:150px">
+          <input id="p-location" placeholder="Location" style="width:120px">
+          <select id="p-status" style="width:150px">
+            <option value="dihuni">Owner-occupied</option>
+            <option value="disewakan">Rented</option>
+            <option value="kosong">Vacant</option>
+          </select>
+          <input id="p-value" type="number" min="0" step="any" placeholder="Value" style="width:150px">
+          <input id="p-rent" type="number" min="0" step="any" placeholder="Rent/mo (optional)" style="width:170px">
+          <button class="btn btn-primary" onclick="addProperty()" data-i18n="btn.add">+ Add</button>
+        </div>
       </div>
-    </div>
-  </div><!-- /tab-insights -->
+    </div><!-- /tab-holdings -->
 
-</div><!-- /app -->
+    <!-- ====== INSIGHTS TAB ====== -->
+    <div id="tab-insights" style="display:none">
+      <div class="insights fade-in">
+        <div class="insight-card">
+          <div class="insight-title" data-i18n="insight.passiveIncome">Passive Income</div>
+          <div class="insight-val green" id="i-monthly">&#x2014;</div>
+          <div style="font-size:11px;color:var(--muted);font-family:var(--mono);margin-top:2px"
+            data-i18n="insight.perMonth">per month</div>
+          <div id="i-passive-breakdown" style="margin-top:8px;font-size:11px;font-family:var(--mono);line-height:1.8">
+          </div>
+          <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border)">
+            <div class="insight-val cyan" style="font-size:1.1rem" id="i-annual">&#x2014;</div>
+            <div style="font-size:11px;color:var(--muted);font-family:var(--mono);margin-top:2px"
+              data-i18n="insight.perYear">per year</div>
+          </div>
+        </div>
+        <div class="insight-card">
+          <div class="insight-title" data-i18n="insight.fireNumber">FIRE Number (25&#xD7;)</div>
+          <div class="insight-val amber" id="i-fire">&#x2014;</div>
+          <div class="insight-note" data-i18n="insight.fireNote">Target wealth for financial independence = monthly
+            expenses &#xD7; 12 &#xD7; 25.</div>
+        </div>
+        <div class="insight-card">
+          <div class="insight-title" data-i18n="insight.swr">Safe Withdrawal / Month</div>
+          <div class="insight-val green" id="i-swr">&#x2014;</div>
+          <div class="insight-note" data-i18n="insight.swrNote">4% rule: liquid assets &#xD7; 4% &#xF7; 12. Property
+            excluded.</div>
+        </div>
+      </div>
 
-<!-- Scripts — load order: config → lang → state → format → api → render → actions → export → init -->
-<script src="js/config.js"></script>
-<script src="js/lang.js"></script>
-<script src="js/state.js"></script>
-<script src="js/format.js"></script>
-<script src="js/api.js"></script>
-<script src="js/render.js"></script>
-<script src="js/actions.js"></script>
-<script src="js/export.js"></script>
-<script src="js/init.js"></script>
+      <!-- Monthly spend input -->
+      <div class="section fade-in" style="margin-bottom:16px">
+        <div class="section-header">
+          <div class="section-title" data-i18n="insight.monthlySpend">Monthly Expense Estimate</div>
+        </div>
+        <div class="add-form">
+          <input id="monthly-spend" type="number" value="15000000" style="width:180px" oninput="recalcInsights()">
+          <span id="spend-display"
+            style="font-size:13px;color:var(--accent2);font-family:var(--mono);font-weight:600">Rp 15.000.000</span>
+          <span style="font-size:11px;color:var(--muted);font-family:var(--mono)" data-i18n="insight.spendHint">&#x2192;
+            used for FIRE calculation</span>
+        </div>
+      </div>
+
+      <!-- Progress to FIRE -->
+      <div class="section fade-in" style="margin-bottom:16px">
+        <div class="section-header">
+          <div class="section-title" data-i18n="insight.fireProgress">Progress to FIRE</div>
+        </div>
+        <div style="padding:18px">
+          <div
+            style="display:flex;justify-content:space-between;font-size:12px;font-family:var(--mono);color:var(--muted);margin-bottom:8px">
+            <span id="fire-progress-label">&#x2014;</span>
+            <span id="fire-target-label">&#x2014;</span>
+          </div>
+          <div style="background:var(--bg);border-radius:6px;height:10px;overflow:hidden">
+            <div id="fire-bar"
+              style="height:10px;background:var(--accent);border-radius:6px;width:0%;transition:width .8s ease"></div>
+          </div>
+          <div style="text-align:center;margin-top:8px;font-size:12px;font-family:var(--mono);color:var(--muted)"
+            id="fire-pct-label">0%</div>
+        </div>
+      </div>
+
+      <!-- FIRE Analysis tips -->
+      <div class="section fade-in" style="margin-bottom:16px">
+        <div class="section-header">
+          <div class="section-title" data-i18n="insight.fireAnalysis">FIRE Analysis</div>
+        </div>
+        <div class="fire-tips" id="fire-analysis">
+          <div class="empty" data-i18n="empty.addAssets">Add assets to see analysis</div>
+        </div>
+      </div>
+
+      <!-- Asset allocation donuts -->
+      <div class="section fade-in">
+        <div class="section-header">
+          <div class="section-title" data-i18n="insight.allocation">Asset Allocation</div>
+        </div>
+        <div class="donut-grid">
+          <div class="donut-card">
+            <div class="donut-card-title" data-i18n="donut.mix">Portfolio Mix</div>
+            <canvas id="donut-canvas" width="160" height="160" style="width:160px;height:160px"></canvas>
+            <div class="donut-legend" id="donut-legend">
+              <div class="empty" style="font-size:11px">&#x2014;</div>
+            </div>
+          </div>
+          <div class="donut-card">
+            <div class="donut-card-title" data-i18n="donut.currency">Currency</div>
+            <canvas id="currency-canvas" width="160" height="160" style="width:160px;height:160px"></canvas>
+            <div class="donut-legend" id="currency-legend">
+              <div class="empty" style="font-size:11px">&#x2014;</div>
+            </div>
+          </div>
+          <div class="donut-card">
+            <div class="donut-card-title" data-i18n="donut.sector">Sector</div>
+            <canvas id="sector-canvas" width="160" height="160" style="width:160px;height:160px"></canvas>
+            <div class="donut-legend" id="sector-donut-legend">
+              <div class="empty" style="font-size:11px" data-i18n="empty.sector">Fetch prices for sector data</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:0 20px 18px" id="alloc-bars"></div>
+      </div>
+
+      <!-- Sector breakdown bars -->
+      <div class="section fade-in">
+        <div class="section-header">
+          <div class="section-title" data-i18n="insight.sectorBreakdown">Stock Sectors</div>
+        </div>
+        <div style="padding:18px" id="sector-bars">
+          <div class="empty" data-i18n="empty.sector">Sector data loaded after price fetch</div>
+        </div>
+      </div>
+    </div><!-- /tab-insights -->
+
+  </div><!-- /app -->
+
+  <!-- Scripts — load order: config → lang → state → format → api → render → actions → export → init -->
+  <script src="js/config.js"></script>
+  <script src="js/lang.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/format.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/actions.js"></script>
+  <script src="js/export.js"></script>
+  <script src="js/init.js"></script>
 </body>
+
 </html>
